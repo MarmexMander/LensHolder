@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map", "LensHolder_Map\LensHolder_Map.csproj", "{A17C637A-E505-4301-90BF-5DB57AF7FB49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map.Android", "LensHolder_Map.Android\LensHolder_Map.Android.csproj", "{7CB18529-EB0D-4007-B1D3-5EE74D39911F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map.Browser", "LensHolder_Map.Browser\LensHolder_Map.Browser.csproj", "{4013A83F-1BC5-4FDB-A291-F9B640EEE523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LensBox", "LensBox\LensBox.csproj", "{3CD33463-8EEB-476E-8BA3-E9AB8677111C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A17C637A-E505-4301-90BF-5DB57AF7FB49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17C637A-E505-4301-90BF-5DB57AF7FB49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17C637A-E505-4301-90BF-5DB57AF7FB49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17C637A-E505-4301-90BF-5DB57AF7FB49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB18529-EB0D-4007-B1D3-5EE74D39911F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB18529-EB0D-4007-B1D3-5EE74D39911F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB18529-EB0D-4007-B1D3-5EE74D39911F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB18529-EB0D-4007-B1D3-5EE74D39911F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4013A83F-1BC5-4FDB-A291-F9B640EEE523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4013A83F-1BC5-4FDB-A291-F9B640EEE523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4013A83F-1BC5-4FDB-A291-F9B640EEE523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4013A83F-1BC5-4FDB-A291-F9B640EEE523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD33463-8EEB-476E-8BA3-E9AB8677111C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD33463-8EEB-476E-8BA3-E9AB8677111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD33463-8EEB-476E-8BA3-E9AB8677111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD33463-8EEB-476E-8BA3-E9AB8677111C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE504B2D-084E-4164-9F9A-439704A6C43C}
+	EndGlobalSection
+EndGlobal
