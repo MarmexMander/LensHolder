@@ -12,6 +12,7 @@ namespace LensBox
         public Task AsyncUpdate();
         public bool CheckUpdates();
         public IEnumerable<ILens> Lenses { get; }
+        public IEnumerable<Assets.AssetID> Assets { get; }
         public PluginID PluginID { get; }
     }
 }
