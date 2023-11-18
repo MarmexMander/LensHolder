@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace LensBox
 {
+    public enum DependencyType
+    {
+        Required,
+        Synergy
+    }
+
     internal interface IPlugin: IDisplayable
     {
         public void Init();
@@ -14,7 +20,7 @@ namespace LensBox
         public bool CheckUpdates();
         public IEnumerable<ILens> Lenses { get; }
         public IEnumerable<Assets.AssetID> Assets { get; }
-        public PluginID PluginID { get; }
+        public PluginID ID { get; }
         public Dictionary<PluginID, DependencyType> Dependencies { get;}
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LensBox
 {
-    internal struct PluginID
+    public struct PluginID
     {
         public string Name { get; private set; }
         public string Author { get; private set; }

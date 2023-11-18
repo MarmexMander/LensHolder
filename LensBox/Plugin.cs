@@ -2,15 +2,12 @@
 
 namespace LensBox.Core
 {
-    public enum DependencyType
+
+    public abstract class Plugin : IPlugin 
     {
-        Required,
-        Synergy
-    }
-    public class Plugin : IPlugin 
-    {
+        public PluginID ID => throw new NotImplementedException();
         Version Version { get; set; }
-        public string Name { get; private set; }
+        public string Name { get => ID.Name; }
         public string Description { get; private set; }
         public byte[] Icon { get; private set; }
         public Dictionary<string, DependencyType> Dependencies { get; private set; }
@@ -18,8 +15,6 @@ namespace LensBox.Core
         IEnumerable<ILens> IPlugin.Lenses => throw new NotImplementedException();
 
         IEnumerable<AssetID> IPlugin.Assets => throw new NotImplementedException();
-
-        PluginID IPlugin.PluginID => throw new NotImplementedException();
 
         Dictionary<PluginID, DependencyType> IPlugin.Dependencies => throw new NotImplementedException();
 
