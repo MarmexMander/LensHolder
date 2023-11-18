@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LensBox
 {
-    internal abstract class ActionBase<T>
+    internal abstract class ActionBase<T> : IDisplayable
     {
-        public readonly string Name;
-        public readonly Assets.AssetID Icon;
+        public string Name { get; private set;}
+        public string Description { get; private set; }
+        public byte[] Icon { get; private set; }
         public abstract void Execute(T obj);
-
     }
 }
