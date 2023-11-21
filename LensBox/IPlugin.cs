@@ -1,4 +1,6 @@
-﻿using LensBox.Core;
+﻿using LensBox.Components;
+using LensBox.Core;
+using LensBox.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +15,13 @@ namespace LensBox
         Synergy
     }
 
-    internal interface IPlugin: IDisplayable
+    public interface IPlugin: IDisplayable
     {
         public void Init();
         public Task AsyncUpdate();
         public bool CheckUpdates();
         public IEnumerable<ILens> Lenses { get; }
-        public IEnumerable<Assets.AssetID> Assets { get; }
+        //public IEnumerable<Assets.AssetID> Assets { get; }
         public PluginID ID { get; }
         public Dictionary<PluginID, DependencyType> Dependencies { get;}
     }

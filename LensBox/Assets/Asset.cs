@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LensBox.Assets
 {
-    enum SecurityLevel {
+    enum SecurityLevel
+    {
         Global,
         Local,
         Shared,
@@ -14,8 +15,8 @@ namespace LensBox.Assets
     }
     internal struct AssetID
     {
-        public PluginID OwnerPlugin { get; private set;}
-        public string Name { get; private set;}
-        public SecurityLevel SecurityLevel { get; private set;}
+        public PluginID OwnerPlugin { get; private set; }
+        public string Name { get; private set; }
+        public SecurityLevel SecurityLevel { get; private set; }
     }
 }

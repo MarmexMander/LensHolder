@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LensBox
+namespace LensBox.Interface
 {
-    internal interface IDisplayable
+    public interface IDisplayable
     {
         string Name { get; }
         string Description { get; }

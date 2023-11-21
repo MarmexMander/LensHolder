@@ -1,4 +1,5 @@
 ﻿using LensBox.Assets;
+using LensBox.Components;
 
 namespace LensBox.Core
 {
@@ -13,8 +14,6 @@ namespace LensBox.Core
         public Dictionary<string, DependencyType> Dependencies { get; private set; }
 
         IEnumerable<ILens> IPlugin.Lenses => throw new NotImplementedException();
-
-        IEnumerable<AssetID> IPlugin.Assets => throw new NotImplementedException();
 
         Dictionary<PluginID, DependencyType> IPlugin.Dependencies => throw new NotImplementedException();
 

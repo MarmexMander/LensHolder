@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LensBox
+namespace LensBox.Components
 {
-    internal interface ILandmark
+    public interface ILandmark
     {
         public IFeature MapFeature { get; }
     }
