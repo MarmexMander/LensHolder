@@ -18,9 +18,10 @@ namespace LensBox
     public interface IPlugin: IDisplayable
     {
         public void Init();
-        public Task AsyncUpdate();
-        public bool CheckUpdates();
+        public void Disable();
+        public void Cleanup();
         public IEnumerable<ILens> Lenses { get; }
+        public IEnumerable<Actions.IAction> Actions { get; }
         //public IEnumerable<Assets.AssetID> Assets { get; }
         public PluginID ID { get; }
         public Dictionary<PluginID, DependencyType> Dependencies { get;}
