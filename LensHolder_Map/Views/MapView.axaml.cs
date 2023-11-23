@@ -1,8 +1,4 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Input.GestureRecognizers;
-using Mapsui.Widgets.ScaleBar;
-using Mapsui.Widgets.Zoom;
-using Mapsui.Widgets;
 using Mapsui;
 using Mapsui.Extensions;
 using Avalonia.Input;

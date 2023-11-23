@@ -1,6 +1,9 @@
-﻿namespace LensHolder_Map.ViewModels;
+﻿
+using ReactiveUI;
 
-public class MapViewModel : ViewModelBase
+namespace LensHolder_Map.ViewModels;
+
+public class MapViewModel : ReactiveObject
 {
-    public double LastScale => 0;
+    
 }

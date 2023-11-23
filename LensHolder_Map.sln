@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map", "LensHolder_Map\LensHolder_Map.csproj", "{A17C637A-E505-4301-90BF-5DB57AF7FB49}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3CD33463-8EEB-476E-8BA3-E9AB8677111C} = {3CD33463-8EEB-476E-8BA3-E9AB8677111C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map.Android", "LensHolder_Map.Android\LensHolder_Map.Android.csproj", "{7CB18529-EB0D-4007-B1D3-5EE74D39911F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map.Browser", "LensHolder_Map.Browser\LensHolder_Map.Browser.csproj", "{4013A83F-1BC5-4FDB-A291-F9B640EEE523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LensBox", "LensBox\LensBox.csproj", "{3CD33463-8EEB-476E-8BA3-E9AB8677111C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensBox", "LensBox\LensBox.csproj", "{3CD33463-8EEB-476E-8BA3-E9AB8677111C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

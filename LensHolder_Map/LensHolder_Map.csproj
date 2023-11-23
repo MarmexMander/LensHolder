@@ -29,7 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Views\Components\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LensBox\LensBox.csproj" />
   </ItemGroup>
 </Project>
