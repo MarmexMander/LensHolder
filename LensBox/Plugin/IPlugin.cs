@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LensBox
+namespace LensBox.Plugin
 {
     public enum DependencyType
     {
@@ -15,15 +15,15 @@ namespace LensBox
         Synergy
     }
 
-    public interface IPlugin: IDisplayable
+    public interface IPlugin : IDisplayable
     {
         public void Init();
         public void Disable();
         public void Cleanup();
         public IEnumerable<ILens> Lenses { get; }
-        public IEnumerable<Actions.IAction> Actions { get; }
+        public IEnumerable<IAction> Actions { get; }
         //public IEnumerable<Assets.AssetID> Assets { get; }
         public PluginID ID { get; }
-        public Dictionary<PluginID, DependencyType> Dependencies { get;}
+        public Dictionary<PluginID, DependencyType> Dependencies { get; }
     }
 }

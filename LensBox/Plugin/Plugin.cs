@@ -1,10 +1,10 @@
 ﻿using LensBox.Assets;
 using LensBox.Components;
 
-namespace LensBox.Core
+namespace LensBox.Plugin
 {
 
-    public abstract class Plugin : IPlugin 
+    public abstract class Plugin : IPlugin
     {
         public PluginID ID => throw new NotImplementedException();
         Version Version { get; set; }

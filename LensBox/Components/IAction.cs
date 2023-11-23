@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LensBox.Interface;
 
-namespace LensBox.Actions
+namespace LensBox.Components
 {
     //Check GPT. I already searching for this topic. keywords: "free", IAction 
     //Or leave only IAction<T> and for "free" actions use the Map object

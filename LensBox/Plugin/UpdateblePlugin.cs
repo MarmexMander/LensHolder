@@ -1,5 +1,4 @@
-﻿using LensBox.Actions;
-using LensBox.Components;
+﻿using LensBox.Components;
 using LensBox.Updaters;
 using System;
 using System.Collections.Generic;
@@ -9,13 +8,13 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LensBox
+namespace LensBox.Plugin
 {
     internal abstract class UpdateblePlugin : IPlugin
     {
         private IPluginUpdater _updater;
-        public Version GetVersion() => 
-            Assembly.GetExecutingAssembly().GetName().Version 
+        public Version GetVersion() =>
+            Assembly.GetExecutingAssembly().GetName().Version
             ?? throw new InvalidOperationException($"Version information is not provided in the assembly of plugin with ID: {ID}.");
         public abstract void Init();
         public abstract void Disable();
