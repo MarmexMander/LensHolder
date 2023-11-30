@@ -1,5 +1,4 @@
 ﻿using LensBox.Components;
-using LensBox.Core;
 using LensBox.Interface;
 using System;
 using System.Collections.Generic;
@@ -15,14 +14,12 @@ namespace LensBox.Plugin
         Synergy
     }
 
-    public interface IPlugin : IDisplayable
+    public interface IPlugin : IDisplayable, IComponentProvider
     {
         public void Init();
         public void Disable();
+        public void Enable();
         public void Cleanup();
-        public IEnumerable<ILens> Lenses { get; }
-        public IEnumerable<IAction> Actions { get; }
-        //public IEnumerable<Assets.AssetID> Assets { get; }
         public PluginID ID { get; }
         public Dictionary<PluginID, DependencyType> Dependencies { get; }
     }

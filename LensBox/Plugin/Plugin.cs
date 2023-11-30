@@ -4,30 +4,41 @@ using LensBox.Components;
 namespace LensBox.Plugin
 {
 
-    public abstract class Plugin : IPlugin
+    public abstract class Plugin : MarshalByRefObject, IPlugin
     {
         public PluginID ID => throw new NotImplementedException();
-        Version Version { get; set; }
-        public string Name { get => ID.Name; }
-        public string Description { get; private set; }
-        public byte[] Icon { get; private set; }
-        public Dictionary<string, DependencyType> Dependencies { get; private set; }
 
-        IEnumerable<ILens> IPlugin.Lenses => throw new NotImplementedException();
+        public Dictionary<PluginID, DependencyType> Dependencies => throw new NotImplementedException();
 
-        Dictionary<PluginID, DependencyType> IPlugin.Dependencies => throw new NotImplementedException();
+        public string Name => throw new NotImplementedException();
+
+        public string Description => throw new NotImplementedException();
+
+        public byte[] Icon => throw new NotImplementedException();
+
+        public IDictionary<Type, IEnumerable<object>> Components => throw new NotImplementedException();
+
+        public void Cleanup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Disable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Enable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasComponentsOfType(Type t)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Init()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AsyncUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUpdates()
         {
             throw new NotImplementedException();
         }
