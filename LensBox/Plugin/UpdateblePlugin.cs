@@ -20,8 +20,13 @@ namespace LensBox.Plugin
         public abstract void Disable();
         public abstract void Cleanup();
 
+        public abstract void Enable();
+
+        public abstract IEnumerable<object> GetComponentsOfType(Type t);
+
+        public abstract bool HasComponentsOfType(Type t);
+
         public IPluginUpdater Updater { get => _updater; }
-        public abstract IEnumerable<ILens> Lenses { get; }
         public abstract IEnumerable<IAction> Actions { get; }
         public abstract PluginID ID { get; }
         public abstract Dictionary<PluginID, DependencyType> Dependencies { get; }

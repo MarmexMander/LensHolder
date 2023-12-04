@@ -16,8 +16,6 @@ namespace LensBox.Plugin
 
         public byte[] Icon => throw new NotImplementedException();
 
-        public IDictionary<Type, IEnumerable<object>> Components => throw new NotImplementedException();
-
         public void Cleanup()
         {
             throw new NotImplementedException();
@@ -29,6 +27,11 @@ namespace LensBox.Plugin
         }
 
         public void Enable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<object> GetComponentsOfType(Type t)
         {
             throw new NotImplementedException();
         }

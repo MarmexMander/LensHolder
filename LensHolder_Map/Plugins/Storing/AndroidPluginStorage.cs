@@ -19,6 +19,13 @@ namespace LensHolder_Map.Plugins.Storing
 
             _pluginsDirectory = Path.Combine(appDataDir, "Plugins");
             Directory.CreateDirectory(_pluginsDirectory);
+            LoadInstalledPluginsFromCache();
+            ValidateCache();
+        }
+
+        //TODO: Implement
+        private bool ValidateCache(){
+            return true;
         }
 
         public IEnumerable<PluginID> GetInstalledPlugins()
@@ -36,7 +43,8 @@ namespace LensHolder_Map.Plugins.Storing
             return null;
         }
 
-        public void InstallPlugin(string filePath)
+        //TODO: Refactor
+        public PluginID InstallPlugin(string filePath)
         {
             // Generate a unique file name for the copied DLL
             var fileName = Guid.NewGuid().ToString("N") + ".dll";
@@ -50,13 +58,16 @@ namespace LensHolder_Map.Plugins.Storing
             var pluginType = context.LoadFromAssemblyPath(destinationPath).GetTypes()
                                 .FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract);
 
+            PluginID pluginID;
             if (pluginType != null)
             {
                 var plugin = (IPlugin)Activator.CreateInstance(pluginType);
-                _installedPlugins[plugin.ID] = destinationPath;
+                pluginID = plugin.ID;
+                _installedPlugins[pluginID] = destinationPath;
             }
             context.Unload();
             SaveInstalledPluginsToCache();
+            return pluginID;
         }
 
         public void UninstallPlugin(PluginID plugin)

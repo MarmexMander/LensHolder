@@ -11,7 +11,7 @@ namespace LensHolder_Map.Plugins.Storing
     {
         public IEnumerable<PluginID> GetInstalledPlugins();
         public string GetPluginPath(PluginID plugin);
-        public void InstallPlugin(string path);
+        public PluginID InstallPlugin(string path);
         public void UninstallPlugin(PluginID plugin);
     }
 }

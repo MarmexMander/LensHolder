@@ -8,7 +8,7 @@ namespace LensBox.Components
 {
     public interface IComponentProvider
     {
-        IDictionary<Type, IEnumerable<object>> Components { get; }
+        IEnumerable<object> GetComponentsOfType(Type t);
         public bool HasComponentsOfType(Type t);
     }
 }
