@@ -14,7 +14,7 @@ namespace LensHolder_Map.Plugins.Managing
     {
         private static readonly Dictionary<PluginStrategy, Type> strategies =
         new Dictionary<PluginStrategy, Type>(){
-            { PluginStrategy.Unrestricted, typeof(Unrestricted) }
+            { PluginStrategy.Unrestricted, typeof(Plugins.Managing.ManagingStrategies.Unrestricted) }
         };
 
         public static readonly ReadOnlyDictionary<PluginStrategy, Type> PluginStrategies = new(strategies);
