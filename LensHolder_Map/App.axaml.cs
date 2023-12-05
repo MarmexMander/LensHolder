@@ -16,8 +16,8 @@ public partial class App : Application
 
     public App()
     {
-        pluginStorage = new AndroidPluginStorage(); //TODO: Make platform-relative initialization
-        pluginsManager = new PluginsManager(pluginStorage);
+        //pluginStorage = new AndroidPluginStorage(); //TODO: Make platform-relative initialization
+        //pluginsManager = new PluginsManager(pluginStorage);
     }
 
     public override void Initialize()
@@ -36,7 +36,7 @@ public partial class App : Application
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainWindow
+            singleViewPlatform.MainView = new MainView
             {
                 DataContext = new MapViewModel()
             };
