@@ -7,17 +7,21 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using System.Net.WebSockets;
 
 namespace LensHolder_Map.Plugins.Managing
 {
     internal class PluginsManager : LensBox.Components.IComponentProvider
     {
+        const string PLUGIN_CONFIG_NAME = "plugins_config.json";
+
         private static readonly Dictionary<PluginStrategy, Type> strategies =
         new Dictionary<PluginStrategy, Type>(){
             { PluginStrategy.Unrestricted, typeof(Plugins.Managing.ManagingStrategies.Unrestricted) }
         };
 
         public static readonly ReadOnlyDictionary<PluginStrategy, Type> PluginStrategies = new(strategies);
+        private string _pluginConfigPath;
 
         #region Singleton
         // #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -41,6 +45,8 @@ namespace LensHolder_Map.Plugins.Managing
 
         public PluginsManager(IPluginStorage storage)
         {
+            var _appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            _pluginConfigPath = Path.Combine(_appDataDir, PLUGIN_CONFIG_NAME);
             _pluginStorage = storage;
             _installedPlugins = LoadPluginConfig();
             _activePlugins = new();
@@ -126,16 +132,19 @@ namespace LensHolder_Map.Plugins.Managing
 
             return _gatheredComponents[t];
         }
-        private bool SavePluginConfig(string path)
+        private bool SavePluginConfig()
         {
             var json = JsonConvert.SerializeObject(_installedPlugins, new PluginConfigJsonConverter(strategies));
-            File.WriteAllText(path, json);
+            
+            File.WriteAllText(_pluginConfigPath, json);
             return true;
         }
 
         private Dictionary<PluginID, PluginConfig> LoadPluginConfig()
         {
-            var json = File.ReadAllText("plugins.json");
+            if (!Path.Exists(_pluginConfigPath)) return new();
+
+            var json = File.ReadAllText(_pluginConfigPath);
             var deserialized = JsonConvert.DeserializeObject<Dictionary<PluginID, PluginConfig>>(
               json,
               new PluginConfigJsonConverter(strategies));
