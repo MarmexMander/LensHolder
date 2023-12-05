@@ -8,5 +8,9 @@
         x:Class="LensHolder_Map.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="LensHolder_Map">
-        <views:MapView />
+	<DockPanel>
+		<views:LensesPanel DockPanel.Dock="Top"/>
+		<views:MapView/>
+		<views:PluginsPanel DockPanel.Dock="Bottom"/>
+	</DockPanel>
 </Window>

@@ -27,6 +27,9 @@
     <Compile Update="Views\MapView.axaml.cs">
       <DependentUpon>MapView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\LensesPanel.axaml.cs">
+      <DependentUpon>LensesPanel.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

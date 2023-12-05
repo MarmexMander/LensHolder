@@ -7,6 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LensHolder_Map.Views.MainView">
 	<DockPanel>
+		<views:LensesPanel DockPanel.Dock="Top"/>
 		<views:MapView/>
 		<views:PluginsPanel DockPanel.Dock="Bottom"/>
 	</DockPanel>

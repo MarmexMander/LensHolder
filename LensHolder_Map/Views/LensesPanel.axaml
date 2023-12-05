@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:LensHolder_Map.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="LensHolder_Map.Views.PluginsPanel"
-			 x:DataType="vm:PluginPanelViewModel">
+             x:Class="LensHolder_Map.Views.LensesPanel"
+			 x:DataType="vm:LensesPanelViewModel">
 
 	
 		<StackPanel Background="#051726" Orientation="Horizontal">
-			<ItemsRepeater Height="100" ItemsSource="{Binding Plugins}">
+			<ItemsRepeater Height="100" ItemsSource="{Binding Lenses}">
 				<ItemsRepeater.Layout>
 					<StackLayout Spacing="5"
 						Orientation="Horizontal" />
@@ -22,7 +22,6 @@
 					</DataTemplate>
 				</ItemsRepeater.ItemTemplate>
 			</ItemsRepeater>
-			<Button Click="AddPluginClick"/>
 		</StackPanel>
 	
 </UserControl>
