@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:LensHolder_Map.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LensHolder_Map.Views.PluginsPanel"
+			 x:DataType="vm:PluginPanelViewModel">
+
+	
+		<StackPanel Background="#051726" Orientation="Horizontal">
+			<ItemsRepeater Height="100" ItemsSource="{Binding Plugins}">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="5"
+						Orientation="Horizontal" />
+				</ItemsRepeater.Layout>
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Border Margin="5" BorderBrush="#00ffbf">
+							<TextBlock Foreground="White" Text="{Binding Name}"/>
+						</Border>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+			<Button Click="AddPluginClick"/>
+		</StackPanel>
+	
+</UserControl>

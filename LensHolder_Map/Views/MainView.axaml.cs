@@ -7,6 +7,7 @@ namespace LensHolder_Map.Views
         public MainView()
         {
             InitializeComponent();
+            
         }
     }
 }
