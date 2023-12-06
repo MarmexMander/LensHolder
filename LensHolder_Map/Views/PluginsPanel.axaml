@@ -8,8 +8,8 @@
 			 x:DataType="vm:PluginPanelViewModel">
 
 	
-		<StackPanel Background="#051726" Orientation="Horizontal">
-			<ItemsRepeater Height="100" ItemsSource="{Binding Plugins}">
+		<StackPanel Background="#051726" Height="100" Orientation="Horizontal">
+			<ItemsRepeater ItemsSource="{Binding Plugins}">
 				<ItemsRepeater.Layout>
 					<StackLayout Spacing="5"
 						Orientation="Horizontal" />

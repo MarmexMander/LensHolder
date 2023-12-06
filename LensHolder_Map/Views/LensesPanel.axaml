@@ -8,8 +8,8 @@
 			 x:DataType="vm:LensesPanelViewModel">
 
 	
-		<StackPanel Background="#051726" Orientation="Horizontal">
-			<ItemsRepeater Height="100" ItemsSource="{Binding Lenses}">
+		<StackPanel Background="#051726"  Height="100" Orientation="Horizontal">
+			<ItemsRepeater ItemsSource="{Binding Lenses}">
 				<ItemsRepeater.Layout>
 					<StackLayout Spacing="5"
 						Orientation="Horizontal" />
