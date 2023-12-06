@@ -7,5 +7,10 @@ namespace LensHolder_Map.ViewModels;
 
 public class MapViewModel : ReactiveObject
 {
-    public List<ILens> Lens { get; set; } = new List<ILens>();
+    public List<ILens> Lens { get; set; }
+
+    public MapViewModel(List<ILens> lens)
+    {
+        Lens = lens;
+    }
 }

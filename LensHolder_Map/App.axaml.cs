@@ -11,15 +11,20 @@ namespace LensHolder_Map;
 
 public partial class App : Application
 {
-    internal IPluginStorage pluginStorage;
-    PluginsManager pluginsManager;
+    private IPluginStorage pluginStorage;
+    private PluginsManager pluginsManager;
+
+    internal IPluginStorage PluginStorage { get => pluginStorage; set => pluginStorage = value; }
+    internal PluginsManager PluginsManager { get => pluginsManager; set => pluginsManager = value; }
+
 
     public App()
     {
         pluginStorage = new AndroidPluginStorage(); //TODO: Make platform-relative initialization
-        pluginsManager = new PluginsManager(pluginStorage);
+        pluginsManager = new PluginsManager(PluginStorage);
     }
 
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -29,10 +34,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MapViewModel()
-            };
+            desktop.MainWindow = new MainWindow();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {

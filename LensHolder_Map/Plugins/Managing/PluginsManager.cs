@@ -8,6 +8,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.WebSockets;
+using System.Reflection;
 
 namespace LensHolder_Map.Plugins.Managing
 {
@@ -15,6 +16,9 @@ namespace LensHolder_Map.Plugins.Managing
     {
         const string PLUGIN_CONFIG_NAME = "plugins_config.json";
 
+        public IEnumerable<IPlugin> Plugins { get => _activePlugins.Values; }
+
+        //REFACTOR: Move it somwhere. For example near the PluginStrategy
         private static readonly Dictionary<PluginStrategy, Type> strategies =
         new Dictionary<PluginStrategy, Type>(){
             { PluginStrategy.Unrestricted, typeof(Plugins.Managing.ManagingStrategies.Unrestricted) }
@@ -67,10 +71,10 @@ namespace LensHolder_Map.Plugins.Managing
 *  - I need to store enabled plugins instances, managing strategy(<- and better name for it) and     
 */
 
-        public bool LoadPlugin(string path, IPluginManagingStrategy strategy)
+        public bool LoadPlugin(string path, PluginStrategy strategy)
         {
             PluginID plugin = _pluginStorage.InstallPlugin(path);
-            _installedPlugins[plugin] = new() { IsActive = false, ManagingStrategy = strategy, Strategy = PluginStrategy.Unrestricted}; // TODO: PluginStrategy changing/picking during instalation
+            _installedPlugins[plugin] = new() { IsActive = false, ManagingStrategy = Activator.CreateInstance(strategies[strategy]) as IPluginManagingStrategy, Strategy = strategy}; // TODO: PluginStrategy changing/picking during instalation; REFACTOR: Activato null check
             return true;
         }
 
@@ -132,6 +136,11 @@ namespace LensHolder_Map.Plugins.Managing
 
             return _gatheredComponents[t];
         }
+        public IEnumerable<T> GetComponentsOfType<T>()
+        {
+            return GetComponentsOfType(typeof(T)).Cast<T>(); //WARN:Looks slow
+        }
+
         private bool SavePluginConfig()
         {
             var json = JsonConvert.SerializeObject(_installedPlugins, new PluginConfigJsonConverter(strategies));

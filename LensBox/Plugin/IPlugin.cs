@@ -16,6 +16,7 @@ namespace LensBox.Plugin
 
     public interface IPlugin : IDisplayable, IComponentProvider
     {
+        string IDisplayable.Name { get => ID.Name; } //Is it good way?
         public void Init();
         public void Disable();
         public void Enable();

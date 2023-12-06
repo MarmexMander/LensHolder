@@ -1,15 +1,16 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:vm="using:LensHolder_Map.ViewModels"
+			 xmlns:vm="clr-namespace:LensHolder_Map.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:views="clr-namespace:LensHolder_Map.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="LensHolder_Map.Views.MainView">
-	<DockPanel>
-		<views:LensesPanel DockPanel.Dock="Top"/>
-		<views:MapView/>
-		<views:PluginsPanel DockPanel.Dock="Bottom"/>
+             x:Class="LensHolder_Map.Views.MainView"
+			 x:DataType="vm:MainViewModel">
+	<DockPanel Margin="0">
+		<views:LensesPanel DockPanel.Dock="Top" DataContext="{Binding LensesPanelVM}"/>
+		<views:MapView Height="100" DataContext="{Binding MapVM}"/>
+		<views:PluginsPanel DockPanel.Dock="Bottom" DataContext="{Binding PluginsPanelVM}"/>
 	</DockPanel>
 
 </UserControl>

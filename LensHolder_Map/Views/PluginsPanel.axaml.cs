@@ -2,6 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
+using LensHolder_Map.Plugins.Managing;
+using System.Linq;
 
 namespace LensHolder_Map.Views
 {
@@ -27,7 +29,12 @@ namespace LensHolder_Map.Views
                 Title = "Open Text File",
                 AllowMultiple = false,
             });
-            return;
+
+            if (files.Count != 1 || !files.First().Name.EndsWith(".dll"))
+                return; //TODO: Add message about incorrect file
+
+            else
+                (App.Current as App).PluginsManager.LoadPlugin(files.First().Path.AbsolutePath, PluginStrategy.Unrestricted);
         }
     }
 }
