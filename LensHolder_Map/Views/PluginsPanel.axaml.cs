@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
 using LensHolder_Map.Plugins.Managing;
+using System.IO;
 using System.Linq;
 
 namespace LensHolder_Map.Views
@@ -34,7 +35,12 @@ namespace LensHolder_Map.Views
                 return; //TODO: Add message about incorrect file
 
             else
-                (App.Current as App).PluginsManager.LoadPlugin(files.First().Path.AbsolutePath, PluginStrategy.Unrestricted);
+            {
+
+                (App.Current as App).PluginsManager.LoadPlugin(files.First(), PluginStrategy.Unrestricted);
+            }
+                
+                
         }
     }
 }

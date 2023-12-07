@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Net.WebSockets;
 using System.Reflection;
+using Avalonia.Platform.Storage;
 
 namespace LensHolder_Map.Plugins.Managing
 {
@@ -21,7 +22,7 @@ namespace LensHolder_Map.Plugins.Managing
         //REFACTOR: Move it somwhere. For example near the PluginStrategy
         private static readonly Dictionary<PluginStrategy, Type> strategies =
         new Dictionary<PluginStrategy, Type>(){
-            { PluginStrategy.Unrestricted, typeof(Plugins.Managing.ManagingStrategies.Unrestricted) }
+            { PluginStrategy.Unrestricted, typeof(ManagingStrategies.Unrestricted) }
         };
 
         public static readonly ReadOnlyDictionary<PluginStrategy, Type> PluginStrategies = new(strategies);
@@ -54,6 +55,10 @@ namespace LensHolder_Map.Plugins.Managing
             _pluginStorage = storage;
             _installedPlugins = LoadPluginConfig();
             _activePlugins = new();
+        }
+
+        public void Init()
+        {
             ActivatePluginsFromConfig();
         }
 
@@ -71,10 +76,11 @@ namespace LensHolder_Map.Plugins.Managing
 *  - I need to store enabled plugins instances, managing strategy(<- and better name for it) and     
 */
 
-        public bool LoadPlugin(string path, PluginStrategy strategy)
+        public bool LoadPlugin(IStorageFile file, PluginStrategy strategy)
         {
-            PluginID plugin = _pluginStorage.InstallPlugin(path);
+            PluginID plugin = _pluginStorage.InstallPlugin(file);
             _installedPlugins[plugin] = new() { IsActive = false, ManagingStrategy = Activator.CreateInstance(strategies[strategy]) as IPluginManagingStrategy, Strategy = strategy}; // TODO: PluginStrategy changing/picking during instalation; REFACTOR: Activato null check
+            SavePluginConfig();
             return true;
         }
 
@@ -85,6 +91,7 @@ namespace LensHolder_Map.Plugins.Managing
             _activePlugins[plugin].Disable();
             _activePlugins.Remove(plugin);
             _installedPlugins[plugin] = pluginConfig;
+            SavePluginConfig();
         }
 
         public void EnablePlugin(PluginID plugin)
@@ -96,6 +103,7 @@ namespace LensHolder_Map.Plugins.Managing
             _activePlugins[plugin].Enable();
             pluginConfig.IsActive = true;
             _installedPlugins[plugin] = pluginConfig;
+            SavePluginConfig();
         }
 
         public void DeletePlugin(PluginID plugin)
@@ -106,9 +114,10 @@ namespace LensHolder_Map.Plugins.Managing
             }
             _installedPlugins.Remove(plugin);
             _pluginStorage.UninstallPlugin(plugin);
+            SavePluginConfig();
         }
 
-        Dictionary<Type, List<object>> _gatheredComponents = new();
+         Dictionary<Type, List<object>> _gatheredComponents = new();
 
         void GatherComponents(Type t)
         {
@@ -121,7 +130,11 @@ namespace LensHolder_Map.Plugins.Managing
             _gatheredComponents[t] = new();
 
             foreach (var plugin in _activePlugins)
-                _gatheredComponents[t].AddRange(plugin.Value.GetComponentsOfType(t));
+            {
+                var components = plugin.Value.GetComponentsOfType(t);
+                if (components != null)
+                    _gatheredComponents[t].AddRange(components);
+            }
         }
 
         public bool HasComponentsOfType(Type t)
@@ -156,7 +169,8 @@ namespace LensHolder_Map.Plugins.Managing
             var json = File.ReadAllText(_pluginConfigPath);
             var deserialized = JsonConvert.DeserializeObject<Dictionary<PluginID, PluginConfig>>(
               json,
-              new PluginConfigJsonConverter(strategies));
+              new PluginConfigJsonConverter(strategies)
+              );
             return deserialized ?? new();
         }
 
@@ -167,6 +181,14 @@ namespace LensHolder_Map.Plugins.Managing
             public bool IsActive;
             [NonSerialized]
             public IPluginManagingStrategy ManagingStrategy;
+        }
+
+
+        [Serializable]
+        private struct PluginConfigDto
+        {
+            public PluginStrategy Strategy;
+            public bool IsActive;
         }
 
         private class PluginConfigJsonConverter : JsonConverter<PluginConfig>
@@ -180,15 +202,22 @@ namespace LensHolder_Map.Plugins.Managing
 
             public override void WriteJson(JsonWriter writer, PluginConfig value, JsonSerializer serializer)
             {
-                serializer.Serialize(writer, value.Strategy);
+                var dto = new PluginConfigDto { Strategy = value.Strategy, IsActive = value.IsActive };
+                serializer.Serialize(writer, dto);
             }
 
             public override PluginConfig ReadJson(JsonReader reader, Type objectType, PluginConfig existingValue, bool hasExistingValue, JsonSerializer serializer)
             {
-                var config = serializer.Deserialize<PluginConfig>(reader);
-                var type = strategies[config.Strategy];
-                config.ManagingStrategy = (IPluginManagingStrategy)Activator.CreateInstance(type);
-                return config;
+                var dto = serializer.Deserialize<PluginConfigDto>(reader);
+                var type = strategies[dto.Strategy];
+                var managingStrategy = (IPluginManagingStrategy)Activator.CreateInstance(type);
+
+                return new PluginConfig
+                {
+                    Strategy = dto.Strategy,
+                    IsActive = dto.IsActive,
+                    ManagingStrategy = managingStrategy
+                };
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using LensBox.Plugin;
+﻿using Avalonia.Platform.Storage;
+using LensBox.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace LensHolder_Map.Plugins.Storing
     {
         public IEnumerable<PluginID> GetInstalledPlugins();
         public string GetPluginPath(PluginID plugin);
-        public PluginID InstallPlugin(string path);
+        public PluginID InstallPlugin(IStorageFile path);
         public void UninstallPlugin(PluginID plugin);
+
+        public string PluginsDirectory { get; }
     }
 }

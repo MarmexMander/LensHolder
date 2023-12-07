@@ -8,9 +8,11 @@ namespace LensHolder_Map.ViewModels;
 public class MapViewModel : ReactiveObject
 {
     public List<ILens> Lens { get; set; }
+    public IBaseMap BaseMap { get; set; }
 
-    public MapViewModel(List<ILens> lens)
+    public MapViewModel(List<ILens> lens, IBaseMap baseMap)
     {
         Lens = lens;
+        BaseMap = baseMap;
     }
 }

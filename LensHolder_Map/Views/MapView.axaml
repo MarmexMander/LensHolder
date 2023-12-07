@@ -7,10 +7,5 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LensHolder_Map.Views.MapView"
              x:DataType="vm:MapViewModel">
-	<Design.DataContext>
-		<!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:MapViewModel />
-	</Design.DataContext>
-	<mapsui:MapControl Grid.Row="1" x:Name="map" Background="Transparent"/>
+	<mapsui:MapControl x:Name="map" Background="Transparent"/>
 </UserControl>

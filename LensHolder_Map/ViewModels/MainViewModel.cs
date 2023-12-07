@@ -13,6 +13,7 @@ namespace LensHolder_Map.ViewModels
     {
         public List<IPlugin> Plugins { get; set; }
         public List<ILens> Lenses { get; set; }
+        public IBaseMap BaseMap { get; set; }
 
         public MapViewModel MapVM { get; set; }
         public LensesPanelViewModel LensesPanelVM { get; set; }
@@ -22,8 +23,11 @@ namespace LensHolder_Map.ViewModels
             App app = App.Current as App;
             Plugins = app.PluginsManager.Plugins.ToList();
             Lenses = app.PluginsManager.GetComponentsOfType<ILens>().ToList();
+            var baseMaps = app.PluginsManager.GetComponentsOfType<IBaseMap>();
+            if(baseMaps.Count() > 0)
+                BaseMap = baseMaps.First(); //TODO: change to retriving basemap from settings
 
-            MapVM = new(Lenses);
+            MapVM = new(Lenses, BaseMap);
             LensesPanelVM = new(Lenses);
             PluginsPanelVM = new(Plugins);
         }

@@ -14,7 +14,7 @@ namespace LensHolder_Map.Plugins.Managing
 
     internal interface IPluginManagingStrategy
     {
-        public Plugin Enable(string path);
+        public IPlugin Enable(string path);
         public void Disable(PluginID plugin);
     }
 }

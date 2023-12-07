@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensHolder_Map.Browser", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LensBox", "LensBox\LensBox.csproj", "{3CD33463-8EEB-476E-8BA3-E9AB8677111C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasePlugin", "BasePlugin\BasePlugin.csproj", "{280E606C-0730-44F8-9D9E-DEA6BC73D80D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CorePlugin", "BasePlugin\CorePlugin.csproj", "{280E606C-0730-44F8-9D9E-DEA6BC73D80D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3CD33463-8EEB-476E-8BA3-E9AB8677111C} = {3CD33463-8EEB-476E-8BA3-E9AB8677111C}
 	EndProjectSection

@@ -1,9 +1,12 @@
-﻿using LensBox.Plugin;
+﻿using Avalonia.Platform.Storage;
+using LensBox.Plugin;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
+using System.Threading.Tasks;
 
 namespace LensHolder_Map.Plugins.Storing
 {
@@ -13,10 +16,11 @@ namespace LensHolder_Map.Plugins.Storing
         private Dictionary<PluginID, string> _installedPlugins = new Dictionary<PluginID, string>();
         private readonly string _pluginCacheFileName = "installed_plugins.cache";
 
+        public string PluginsDirectory { get => _pluginsDirectory; }
+
         public AndroidPluginStorage()
         {
             string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
             _pluginsDirectory = Path.Combine(appDataDir, "Plugins");
             Directory.CreateDirectory(_pluginsDirectory);
             LoadInstalledPluginsFromCache();
@@ -43,20 +47,38 @@ namespace LensHolder_Map.Plugins.Storing
             return null;
         }
 
-        //TODO: Refactor
-        public PluginID InstallPlugin(string filePath)
+        public PluginID InstallPlugin(IStorageFile file)
         {
+            var task = InstallPluginAsync(file);
+            task.Wait();
+            return task.Result;
+        }
+        //TODO: Refactor
+        public async Task<PluginID> InstallPluginAsync(IStorageFile file)
+        {
+            int buffSize = 1024 * 1024;
             // Generate a unique file name for the copied DLL
             var fileName = Guid.NewGuid().ToString("N") + ".dll";
             var destinationPath = Path.Combine(_pluginsDirectory, fileName);
 
             // Copy the DLL to the plugins folder
-            File.Copy(filePath, destinationPath, overwrite: true);
+            using (FileStream fileStream = File.Create(destinationPath))
+            {
+                Stream fs = await file.OpenReadAsync();
+                fileStream.SetLength(fs.Length);
+                int bytesRead = -1;
+                byte[] bytes = new byte[buffSize];
 
+                while ((bytesRead = fs.Read(bytes, 0, buffSize)) > 0)
+                {
+                    fileStream.Write(bytes, 0, bytesRead);
+                }
+                fs.Close();
+            }
             // Load the plugin from the copied DLL
             var context = new PluginLoadContext(_pluginsDirectory);
-            var pluginType = context.LoadFromAssemblyPath(destinationPath).GetTypes()
-                                .FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract);
+            var types = context.LoadFromAssemblyPath(destinationPath).GetTypes();
+            var pluginType = types.FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract);
 
             PluginID pluginID;
             if (pluginType != null)
@@ -87,18 +109,8 @@ namespace LensHolder_Map.Plugins.Storing
             {
                 if (File.Exists(cacheFilePath))
                 {
-                    var lines = File.ReadAllLines(cacheFilePath);
-                    foreach (var line in lines)
-                    {
-                        var parts = line.Split('|');
-                        if (parts.Length == 2)
-                        {
-                            var pluginName = parts[0];
-                            var pluginPath = parts[1];
-                            var pluginID = PluginID.FromString(line);
-                            _installedPlugins[pluginID] = Path.Combine(_pluginsDirectory, pluginPath);
-                        }
-                    }
+                    var lines = File.ReadAllText(cacheFilePath);
+                    _installedPlugins = JsonConvert.DeserializeObject<Dictionary<PluginID, string>>(lines) ?? new();
                 }
             }
             catch (Exception ex)
@@ -114,8 +126,8 @@ namespace LensHolder_Map.Plugins.Storing
 
             try
             {
-                var lines = _installedPlugins.Select(kv => $"{kv.Key}|{kv.Value}");
-                File.WriteAllLines(cacheFilePath, lines);
+                var lines = JsonConvert.SerializeObject(_installedPlugins);
+                File.WriteAllText(cacheFilePath, lines);
             }
             catch (Exception ex)
             {
@@ -123,21 +135,7 @@ namespace LensHolder_Map.Plugins.Storing
             }
         }
 
-        private class PluginLoadContext : AssemblyLoadContext
-        {
-            public PluginLoadContext(string pluginPath) : base(isCollectible: true)
-            {
-                Resolving += (context, assemblyName) =>
-                {
-                    var assemblyPath = Path.Combine(pluginPath, assemblyName.Name + ".dll");
-                    if (File.Exists(assemblyPath))
-                    {
-                        return LoadFromAssemblyPath(assemblyPath);
-                    }
-                    return null;
-                };
-            }
-        }
+
 
     }
 }
