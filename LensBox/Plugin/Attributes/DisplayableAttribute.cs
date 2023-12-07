@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace LensBox.Plugin.Attributes
 {
-
-    [AttributeUsage(AttributeTargets.Method)]
-    internal class DisplayableAttributeBase : Attribute
+    public class DisplayableAttribute : Attribute
     {
         public string Name { get; }
         public string? Description { get; }
         public byte[]? Icon { get; }
 
-        public DisplayableAttributeBase(string name, string? description = null, byte[]? icon = null)
+        public DisplayableAttribute(string name, string? description = null, byte[]? icon = null)
         {
             Name = name;
             Description = description;

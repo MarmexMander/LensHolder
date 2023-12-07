@@ -2,7 +2,9 @@
 using LensBox.Interface;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,23 @@ namespace LensBox.Plugin
         public void Enable();
         public void Cleanup();
         public PluginID ID { get; }
-        public Dictionary<PluginID, DependencyType> Dependencies { get; }
+        public ReadOnlyDictionary<PluginID, DependencyType> Dependencies { get; }
+    }
+
+    //TODO: Move
+    public class PluginLoadContext : AssemblyLoadContext
+    {
+        public PluginLoadContext(string pluginPath) : base(isCollectible: true)
+        {
+            Resolving += (context, assemblyName) =>
+            {
+                var assemblyPath = Path.Combine(pluginPath, assemblyName.Name + ".dll");
+                if (File.Exists(assemblyPath))
+                {
+                    return LoadFromAssemblyPath(assemblyPath);
+                }
+                return null;
+            };
+        }
     }
 }

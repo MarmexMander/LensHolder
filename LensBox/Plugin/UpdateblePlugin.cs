@@ -2,6 +2,7 @@
 using LensBox.Updaters;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
@@ -23,13 +24,14 @@ namespace LensBox.Plugin
         public abstract void Enable();
 
         public abstract IEnumerable<object> GetComponentsOfType(Type t);
+        public abstract IEnumerable<T> GetComponentsOfType<T>();
 
         public abstract bool HasComponentsOfType(Type t);
 
         public IPluginUpdater Updater { get => _updater; }
         public abstract IEnumerable<IAction> Actions { get; }
         public abstract PluginID ID { get; }
-        public abstract Dictionary<PluginID, DependencyType> Dependencies { get; }
+        public abstract ReadOnlyDictionary<PluginID, DependencyType> Dependencies { get; }
         public abstract string Name { get; }
         public abstract string Description { get; }
         public abstract byte[] Icon { get; }

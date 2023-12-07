@@ -1,4 +1,5 @@
-﻿using Mapsui;
+﻿using LensBox.Interface;
+using Mapsui;
 using Mapsui.Layers;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LensBox.Components
 {
-    public interface ILandmark
+    public interface ILandmark : IDisplayable
     {
         public IFeature MapFeature { get; }
     }
