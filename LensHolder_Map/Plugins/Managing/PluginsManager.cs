@@ -79,7 +79,7 @@ namespace LensHolder_Map.Plugins.Managing
         public bool LoadPlugin(IStorageFile file, PluginStrategy strategy)
         {
             PluginID plugin = _pluginStorage.InstallPlugin(file);
-            _installedPlugins[plugin] = new() { IsActive = false, ManagingStrategy = Activator.CreateInstance(strategies[strategy]) as IPluginManagingStrategy, Strategy = strategy}; // TODO: PluginStrategy changing/picking during instalation; REFACTOR: Activato null check
+            _installedPlugins[plugin] = new() { IsActive = true, ManagingStrategy = Activator.CreateInstance(strategies[strategy]) as IPluginManagingStrategy, Strategy = strategy}; // TODO: PluginStrategy changing/picking during instalation and disable default activation; REFACTOR: Activato null check
             SavePluginConfig();
             return true;
         }

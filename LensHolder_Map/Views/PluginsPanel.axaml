@@ -5,10 +5,10 @@
 			 xmlns:vm="clr-namespace:LensHolder_Map.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LensHolder_Map.Views.PluginsPanel"
-			 x:DataType="vm:PluginPanelViewModel">
+			 x:DataType="vm:PluginPanelViewModel" Background="#051726">
 
 	
-		<StackPanel Background="#051726" Height="100" Orientation="Horizontal">
+		<StackPanel Orientation="Horizontal">
 			<ItemsRepeater ItemsSource="{Binding Plugins}">
 				<ItemsRepeater.Layout>
 					<StackLayout Spacing="5"
@@ -22,7 +22,7 @@
 					</DataTemplate>
 				</ItemsRepeater.ItemTemplate>
 			</ItemsRepeater>
-			<Button Click="AddPluginClick"/>
+			<Button Click="AddPluginClick" Content="Add Plugin"/>
 		</StackPanel>
 	
 </UserControl>

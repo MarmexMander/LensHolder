@@ -42,8 +42,9 @@ public partial class MapView : UserControl
     private void ReloadLenses()
     {
         map.Map?.Layers.Clear();
+        if (_viewModel.BaseMap == null) return;
         map.Map?.Layers.Add(_viewModel.BaseMap.GetTileLayer());
-        _viewModel.Lens.ForEach(lens =>
+        _viewModel.Lens?.ForEach(lens =>
         {
             map.Map?.Layers.Add(lens.GetLayer());
         });

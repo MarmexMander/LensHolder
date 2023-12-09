@@ -5,10 +5,11 @@
 			 xmlns:vm="clr-namespace:LensHolder_Map.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LensHolder_Map.Views.LensesPanel"
-			 x:DataType="vm:LensesPanelViewModel">
+			 x:DataType="vm:LensesPanelViewModel"
+			 Background="#051726">
 
 	
-		<StackPanel Background="#051726"  Height="100" Orientation="Horizontal">
+		<StackPanel Orientation="Horizontal">
 			<ItemsRepeater ItemsSource="{Binding Lenses}">
 				<ItemsRepeater.Layout>
 					<StackLayout Spacing="5"
